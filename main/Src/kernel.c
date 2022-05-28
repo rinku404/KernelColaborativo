@@ -22,13 +22,12 @@ error_status_t Kernel_Loop(kernel_t* kernel)
         
         current_process.ExecutionFunction();
 
+        //Press enter to "clock"
+        getchar();
+
         Pool_RemoveEllementByIndex(&(kernel->pool), 0);
 
-        if(current_process.process_execution_class == ONCE)
-        {
-            Process_FreeMemory(&current_process);
-        }
-        else if(current_process.process_execution_class == REPEAT)
+        if(current_process.process_execution_class == REPEAT)
         {
             Pool_AddEllementByIndex(&(kernel->pool), &current_process, kernel->pool.current_size);
         }

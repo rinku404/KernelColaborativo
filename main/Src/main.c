@@ -57,7 +57,7 @@ void CreateProcesses(process_pool_t* pool)
         process.TempoExec = 200;
         process.Prioridade = 3;
         process.ExecutionFunction = PrintMessageB;
-        process.process_execution_class = REPEAT;
+        process.process_execution_class = ONCE;
     }
 
     Pool_AddEllementByIndex(pool, &process, pool->current_size);

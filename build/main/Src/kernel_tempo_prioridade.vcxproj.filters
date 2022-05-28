@@ -13,6 +13,9 @@
     <ClCompile Include="D:\repos\cpp\SistemasEmbarcados\BasicKernelPrioridade\main\Src\test_functions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\repos\cpp\SistemasEmbarcados\BasicKernelPrioridade\main\Src\pool_sorting.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\repos\cpp\SistemasEmbarcados\BasicKernelPrioridade\main\Src\kernel.c">
       <Filter>Source Files</Filter>
     </ClCompile>

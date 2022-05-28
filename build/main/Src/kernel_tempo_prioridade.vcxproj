@@ -313,6 +313,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\repos\cpp\SistemasEmbarcados\BasicKernelPrioridade\main\Src\process_pool.c" />
     <ClCompile Include="D:\repos\cpp\SistemasEmbarcados\BasicKernelPrioridade\main\Src\process.c" />
     <ClCompile Include="D:\repos\cpp\SistemasEmbarcados\BasicKernelPrioridade\main\Src\test_functions.c" />
+    <ClCompile Include="D:\repos\cpp\SistemasEmbarcados\BasicKernelPrioridade\main\Src\pool_sorting.c" />
     <ClCompile Include="D:\repos\cpp\SistemasEmbarcados\BasicKernelPrioridade\main\Src\kernel.c" />
   </ItemGroup>
   <ItemGroup>
