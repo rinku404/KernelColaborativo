@@ -17,10 +17,10 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+			"id" : "kernel_tempo_prioridade::@8985b2457ded46d9e323"
 		},
 		{
-			"id" : "kernel_tempo_prioridade::@8985b2457ded46d9e323"
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",

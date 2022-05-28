@@ -3,6 +3,11 @@
 #include <stdio.h>
 #include <string.h>
 
+void Process_Init(process_t* process)
+{
+    process->NomeProcesso = NULL;
+}
+
 void Process_SetName(process_t* process, char* name, int name_len)
 {
     if(process->NomeProcesso != NULL)
@@ -71,4 +76,6 @@ void Process_FreeMemory(process_t* process)
     {
         free(process->NomeProcesso);
     } 
+
+    process->NomeProcesso = NULL;
 }

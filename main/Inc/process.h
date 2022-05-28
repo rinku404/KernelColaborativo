@@ -22,6 +22,7 @@ struct
 
 } typedef process_t;
 
+void Process_Init(process_t* process);
 void Process_SetName(process_t* process, char* name, int name_len);
 void Process_PrintName(process_t* process);
 void Process_SetMemory(process_t* process, int memory_data);

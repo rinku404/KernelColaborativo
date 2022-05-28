@@ -184,7 +184,7 @@ error_status_t Pool_RemoveEllementByIndex(process_pool_t* pool, int index)
         goto FINISH;
     }
 
-    if(index > pool->current_size || index < 0)
+    if(index >= pool->current_size || index < 0)
     {
         status = INDEX_OUT_OF_RANGE;
         goto FINISH;
@@ -297,27 +297,10 @@ error_status_t Pool_SwapNodeOrder(process_pool_t* pool, int index_a, int index_b
         index_a = index_aux;
     }
 
-
-    process_pool_element_t *node_a = *(pool->start);
-
-    process_pool_element_t *node_b = *(pool->start);
-    process_pool_element_t *prev_b;
-
-    process_pool_element_t aux_node_a, aux_node_b;
-    process_pool_element_t aux_prev_a, aux_prev_b;
-
-    for(int i = 0; i < index_b; i++)
+    if(index_a + 1 == index_b)
     {
-        prev_b = node_b;
-        node_b = node_b->next;
-    }
-
-    if(index_a == 0)
-    {
-        *(pool->start) = node_b;   
-    }
-    else
-    {
+        process_pool_element_t *node_a = *(pool->start);
+        process_pool_element_t *node_b = *(pool->start);
         process_pool_element_t *prev_a;
 
         for(int i = 0; i < index_a; i++)
@@ -325,18 +308,63 @@ error_status_t Pool_SwapNodeOrder(process_pool_t* pool, int index_a, int index_b
             prev_a = node_a;
             node_a = node_a->next;
         }
+        
+        for(int i = 0; i < index_b; i++)
+        {
+            node_b = node_b->next;
+        }
 
-        aux_prev_a = *prev_a;
+        node_b->next = node_a;
+        node_a->next = node_b->next;
         prev_a->next = node_b;
+
+
+    }
+    else
+    {
+        process_pool_element_t *node_a = *(pool->start);
+
+        process_pool_element_t *node_b = *(pool->start);
+        process_pool_element_t *prev_b;
+
+        process_pool_element_t aux_node_a, aux_node_b;
+        process_pool_element_t aux_prev_a, aux_prev_b;
+
+        for(int i = 0; i < index_b; i++)
+        {
+            prev_b = node_b;
+            node_b = node_b->next;
+        }
+
+        if(index_a == 0)
+        {
+            *(pool->start) = node_b;   
+        }
+        else
+        {
+            process_pool_element_t *prev_a;
+
+            for(int i = 0; i < index_a; i++)
+            {
+                prev_a = node_a;
+                node_a = node_a->next;
+            }
+
+            aux_prev_a = *prev_a;
+            prev_a->next = node_b;
+        }
+
+        aux_node_a = *node_a;
+        aux_node_b = *node_b;
+        aux_prev_b = *prev_b;
+
+        prev_b->next = node_a;
+        node_a->next = aux_node_b.next;
+        node_b->next = aux_node_a.next;
+
     }
 
-    aux_node_a = *node_a;
-    aux_node_b = *node_b;
-    aux_prev_b = *prev_b;
 
-    prev_b->next = node_a;
-    node_a->next = aux_node_b.next;
-    node_b->next = aux_node_a.next;
 
 
 FINISH:

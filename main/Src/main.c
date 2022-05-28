@@ -3,6 +3,8 @@
 #include "kernel.h"
 #include "process_pool.h"
 #include "test_functions.h"
+#include "pool_sorting.h"
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,6 +34,7 @@ void ProcessManagedByTime(void)
     Kernel_Init(&kernel);
 
     CreateProcesses(&kernel.pool);
+    PoolSort_ByTime(&kernel.pool);
 
     //printf("pool size: %d\n", kernel.pool.current_size);
 
@@ -45,7 +48,11 @@ void CreateProcesses(process_pool_t* pool)
     printf("Creating Processes\n");
 
     {
-        process.TempoExec = 100;
+        char name[] = "A Proc";
+
+        Process_Init(&process);
+        Process_SetName(&process, name, sizeof(name));
+        process.TempoExec = 300;
         process.Prioridade = 1;
         process.ExecutionFunction = PrintMessageA;
         process.process_execution_class = REPEAT;
@@ -54,6 +61,10 @@ void CreateProcesses(process_pool_t* pool)
     Pool_AddEllementByIndex(pool, &process, pool->current_size);
 
     {
+        char name[] = "B Proc";
+
+        Process_Init(&process);
+        Process_SetName(&process, name, sizeof(name));
         process.TempoExec = 200;
         process.Prioridade = 3;
         process.ExecutionFunction = PrintMessageB;
@@ -63,9 +74,26 @@ void CreateProcesses(process_pool_t* pool)
     Pool_AddEllementByIndex(pool, &process, pool->current_size);
 
     {
-        process.TempoExec = 200;
+        char name[] = "C Proc";
+
+        Process_Init(&process);
+        Process_SetName(&process, name, sizeof(name));
+        process.TempoExec = 100;
         process.Prioridade = 3;
         process.ExecutionFunction = PrintMessageC;
+        process.process_execution_class = REPEAT;
+    }
+
+    Pool_AddEllementByIndex(pool, &process, pool->current_size);
+
+    {
+        char name[] = "D Proc";
+
+        Process_Init(&process);
+        Process_SetName(&process, name, sizeof(name));
+        process.TempoExec = 50;
+        process.Prioridade = 3;
+        process.ExecutionFunction = PrintMessageD;
         process.process_execution_class = REPEAT;
     }
 
@@ -81,89 +109,34 @@ void TestProcessPoolFunctions(void)
     process_pool_t pool;
 
     Pool_Init(&pool);
-
-    process_t proc;
-    char proc_name[] = "A Proc";
-
-    Process_SetName(&proc, proc_name, sizeof(proc));
-    Pool_AddEllementByIndex(&pool, &proc, 0);
-
-    proc_name[0] = 'B';
-
-    Process_SetName(&proc, proc_name, sizeof(proc));
-    Pool_AddEllementByIndex(&pool, &proc, 0);
-
-    proc_name[0] = 'C';
-
-    Process_SetName(&proc, proc_name, sizeof(proc));
-    Pool_AddEllementByIndex(&pool, &proc, 0);
-
-    proc_name[0] = 'D';
-
-    Process_SetName(&proc, proc_name, sizeof(proc));
-    Pool_AddEllementByIndex(&pool, &proc, pool.current_size);
-
-
-    for(int i = 0; i < pool.current_size; i++)
-    {
-        Pool_GetEllementByIndex(&pool, &proc, i);
-        printf("%s\n", proc.NomeProcesso);
-    }
-
-    proc_name[0] = 'E';
-
-    Process_SetName(&proc, proc_name, sizeof(proc));
-    Pool_AddEllementByIndex(&pool, &proc, 4);    
+    CreateProcesses(&pool);
+       
 
     printf("-----------\n");
+    PoolSort_Print(&pool);
 
-    for(int i = 0; i < pool.current_size; i++)
-    {
-        Pool_GetEllementByIndex(&pool, &proc, i);
-        printf("%s\n", proc.NomeProcesso);
-    }
+    Pool_SwapNodeOrder(&pool, 0, 3);
+    printf("----Swapped 0 and 3\n");
+    PoolSort_Print(&pool);
 
-    Pool_SwapNodeOrder(&pool, 0, 2);
+    Pool_SwapNodeOrder(&pool, 2, 3);
+    printf("----Swapped 2 and 3\n");
+    PoolSort_Print(&pool);
 
-    printf("----Swapped 0 and 4\n");
-
-    for(int i = 0; i < pool.current_size; i++)
-    {
-        Pool_GetEllementByIndex(&pool, &proc, i);
-        printf("%s\n", proc.NomeProcesso);
-    }
+    Pool_SwapNodeOrder(&pool, 3, 4);
+    printf("----Swapped 3 and 4\n");
+    PoolSort_Print(&pool);
 
 
     Pool_RemoveEllementByIndex(&pool, 0);
-
     printf("-----Remove 0\n");
+    PoolSort_Print(&pool);
 
-    for(int i = 0; i < pool.current_size; i++)
-    {
-        Pool_GetEllementByIndex(&pool, &proc, i);
-        printf("%s\n", proc.NomeProcesso);
-    }
-
-    Pool_RemoveEllementByIndex(&pool, pool.current_size);
-
+    Pool_RemoveEllementByIndex(&pool, pool.current_size - 1);
     printf("-----Remove last\n");
-
-    for(int i = 0; i < pool.current_size; i++)
-    {
-        Pool_GetEllementByIndex(&pool, &proc, i);
-        printf("%s\n", proc.NomeProcesso);
-    }
+    PoolSort_Print(&pool);
 
     Pool_RemoveEllementByIndex(&pool, 1);
-
     printf("-----Remove 1\n");
-
-    for(int i = 0; i < pool.current_size; i++)
-    {
-        Pool_GetEllementByIndex(&pool, &proc, i);
-        printf("%s\n", proc.NomeProcesso);
-    }
-
-    Pool_Clear(&pool);
-    printf("Pool cleared\n");
+    PoolSort_Print(&pool);
 }
