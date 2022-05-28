@@ -9,9 +9,22 @@
 
 //Kernel Coração de mãe, sempre cabe mais um processo
 
-int main()
+void TestProcessPoolFunctions(void);
+
+int main(void)
 {
-    process_pool_t pool;
+    TestProcessPoolFunctions();
+
+    
+
+    //Kernel_Loop();
+
+    return 0;
+}
+
+void TestProcessPoolFunctions(void)
+{
+        process_pool_t pool;
 
     Pool_Init(&pool);
 
@@ -56,9 +69,9 @@ int main()
         printf("%s\n", proc.NomeProcesso);
     }
 
-    Pool_SwapNodeOrder(&pool, 0, 4);
+    Pool_SwapNodeOrder(&pool, 0, 2);
 
-    printf("----Swapped 0 and 2\n");
+    printf("----Swapped 0 and 4\n");
 
     for(int i = 0; i < pool.current_size; i++)
     {
@@ -96,8 +109,4 @@ int main()
         Pool_GetEllementByIndex(&pool, &proc, i);
         printf("%s\n", proc.NomeProcesso);
     }
-
-    //Kernel_Loop();
-
-    return 0;
 }
