@@ -3,6 +3,7 @@
         "cstring": "c",
         "process.h": "c",
         "circular_buffer.h": "c",
-        "test_functions.h": "c"
+        "test_functions.h": "c",
+        "kernel.h": "c"
     }
 }

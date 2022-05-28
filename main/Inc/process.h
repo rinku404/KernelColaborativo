@@ -2,13 +2,13 @@
 #define PROCESS_H
 
 
-typedef void (*ExecutionFunction_t)(void);
-
 typedef enum
 {
     REPEAT,
     ONCE
 }process_execution_class_t;
+
+typedef void (*ExecutionFunction_t)(void);
 
 struct 
 {
@@ -33,6 +33,6 @@ void Process_SetExecutionClass(process_t* process, process_execution_class_t* pr
 void Process_PrintExecutionClass(process_t* process);
 void Process_SetPriority(process_t* process, int priority);
 void Process_PrintPriority(process_t* process);
-
+void Process_FreeMemory(process_t* process);
 
 #endif

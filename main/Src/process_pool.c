@@ -170,7 +170,6 @@ error_status_t Pool_GetEllementByIndex(process_pool_t* pool,
 
     *process = node->process;
 
-
 FINISH:
     return status;
 }
@@ -204,7 +203,7 @@ error_status_t Pool_RemoveEllementByIndex(process_pool_t* pool, int index)
         *(pool->start) = node->next;
         free(node);
 
-        pool->current_size--;
+        (pool->current_size)--;
 
         goto FINISH;
     }
@@ -224,7 +223,7 @@ error_status_t Pool_RemoveEllementByIndex(process_pool_t* pool, int index)
         prev->next = node->next;
         free(node);
 
-        pool->current_size--;
+        (pool->current_size)--;
 
         goto FINISH;
     }
@@ -245,7 +244,7 @@ error_status_t Pool_RemoveEllementByIndex(process_pool_t* pool, int index)
         prev->next = node->next;
         free(node); 
 
-        pool->current_size--; 
+        (pool->current_size)--;
 
         goto FINISH;
     }
@@ -362,8 +361,6 @@ error_status_t Pool_Clear(process_pool_t* pool)
     {
         free((pool->start));
     }
-
-    printf("Pool cleared\n");
 
 FINISH:
     return status;

@@ -2,29 +2,83 @@
 #include "test_functions.h"
 #include "kernel.h"
 #include "process_pool.h"
+#include "test_functions.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-//Kernel Coração de mãe, sempre cabe mais um processo
+//Kernel Coração de mãe, sempre cabe mais um processo (durante runtime)
 
 void TestProcessPoolFunctions(void);
+void CreateProcesses(process_pool_t* pool);
+void ProcessManagedByTime(void);
 
 int main(void)
 {
-    TestProcessPoolFunctions();
-
-
+    //TestProcessPoolFunctions();
+    ProcessManagedByTime();
 
     //Kernel_Loop();
 
     return 0;
 }
 
+
+void ProcessManagedByTime(void)
+{
+    kernel_t kernel;
+
+    Kernel_Init(&kernel);
+
+    CreateProcesses(&kernel.pool);
+
+    //printf("pool size: %d\n", kernel.pool.current_size);
+
+    Kernel_Loop(&kernel);
+}
+
+void CreateProcesses(process_pool_t* pool)
+{
+    process_t process;
+
+    printf("Creating Processes\n");
+
+    {
+        process.TempoExec = 100;
+        process.Prioridade = 1;
+        process.ExecutionFunction = PrintMessageA;
+        process.process_execution_class = REPEAT;
+    }
+
+    Pool_AddEllementByIndex(pool, &process, pool->current_size);
+
+    {
+        process.TempoExec = 200;
+        process.Prioridade = 3;
+        process.ExecutionFunction = PrintMessageB;
+        process.process_execution_class = REPEAT;
+    }
+
+    Pool_AddEllementByIndex(pool, &process, pool->current_size);
+
+    {
+        process.TempoExec = 200;
+        process.Prioridade = 3;
+        process.ExecutionFunction = PrintMessageC;
+        process.process_execution_class = REPEAT;
+    }
+
+    Pool_AddEllementByIndex(pool, &process, pool->current_size);
+
+    //printf("pool size: %d\n", pool->current_size);
+
+    printf("Processes Created\n");
+}
+
 void TestProcessPoolFunctions(void)
 {
-        process_pool_t pool;
+    process_pool_t pool;
 
     Pool_Init(&pool);
 
@@ -111,4 +165,5 @@ void TestProcessPoolFunctions(void)
     }
 
     Pool_Clear(&pool);
+    printf("Pool cleared\n");
 }

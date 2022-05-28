@@ -5,6 +5,11 @@
 
 void Process_SetName(process_t* process, char* name, int name_len)
 {
+    if(process->NomeProcesso != NULL)
+    {
+        free(process->NomeProcesso);
+    }
+
     process->NomeProcesso = malloc(sizeof(char)*name_len);
 
     strcpy(process->NomeProcesso, name);
@@ -58,4 +63,12 @@ void Process_PrintExecutionClass(process_t* process)
     default:
         break;
     }
+}
+
+void Process_FreeMemory(process_t* process)
+{
+    if(process->NomeProcesso != NULL)
+    {
+        free(process->NomeProcesso);
+    } 
 }
