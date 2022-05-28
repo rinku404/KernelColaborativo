@@ -15,6 +15,4 @@ error_status_t PoolSort_ByTime(process_pool_t* pool);
 //putting the lower first
 error_status_t PoolSort_ByPriority(process_pool_t* pool);
 
-error_status_t PoolSort_ByPriorityAndTime(process_pool_t* pool);
-
 #endif
