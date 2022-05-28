@@ -11,6 +11,8 @@ error_status_t PoolSort_Print(process_pool_t* pool);
 //putting the fastests first
 error_status_t PoolSort_ByTime(process_pool_t* pool);
 
+//Sort The Current Processes on the pool by priority
+//putting the lower first
 error_status_t PoolSort_ByPriority(process_pool_t* pool);
 
 error_status_t PoolSort_ByPriorityAndTime(process_pool_t* pool);

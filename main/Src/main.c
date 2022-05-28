@@ -15,96 +15,15 @@
 void TestProcessPoolFunctions(void);
 void CreateProcesses(process_pool_t* pool);
 void ProcessManagedByTime(void);
-void ProcessManagedByPriority(void);
+void ProcessManagedByPriorityOnly(void);
 
 int main(void)
 {
     //TestProcessPoolFunctions();
-    ProcessManagedByTime();
-    
+    //ProcessManagedByTime();
+    ProcessManagedByPriorityOnly();
 
     return 0;
-}
-
-
-void ProcessManagedByTime(void)
-{
-    kernel_t kernel;
-
-    printf("Initializing Kernel\n");
-    Kernel_Init(&kernel);
-
-    printf("Creating Processes\n");
-    CreateProcesses(&kernel.pool);
-
-    printf("\n\nCreated Process Initial Order\n");
-    PoolSort_Print(&kernel.pool);
-
-    PoolSort_ByTime(&kernel.pool);
-    printf("Sorted Process Order\n");
-    PoolSort_Print(&kernel.pool);
-    
-    printf("Entering Kernel Loop:\n");
-    Kernel_Loop(&kernel);
-}
-
-void CreateProcesses(process_pool_t* pool)
-{
-    process_t process;
-
-    {
-        char name[] = "A Proc";
-
-        Process_Init(&process);
-        Process_SetName(&process, name, sizeof(name));
-        process.TempoExec = 3;
-        process.Prioridade = 1;
-        process.ExecutionFunction = PrintMessageA;
-        process.process_execution_class = REPEAT;
-    }
-
-    Pool_AddEllementByIndex(pool, &process, pool->current_size);
-
-    {
-        char name[] = "B Proc";
-
-        Process_Init(&process);
-        Process_SetName(&process, name, sizeof(name));
-        process.TempoExec = 2;
-        process.Prioridade = 3;
-        process.ExecutionFunction = PrintMessageB;
-        process.process_execution_class = ONCE;
-    }
-
-    Pool_AddEllementByIndex(pool, &process, pool->current_size);
-
-    {
-        char name[] = "C Proc";
-
-        Process_Init(&process);
-        Process_SetName(&process, name, sizeof(name));
-        process.TempoExec = 1;
-        process.Prioridade = 3;
-        process.ExecutionFunction = PrintMessageC;
-        process.process_execution_class = REPEAT;
-    }
-
-    Pool_AddEllementByIndex(pool, &process, pool->current_size);
-
-    {
-        char name[] = "D Proc";
-
-        Process_Init(&process);
-        Process_SetName(&process, name, sizeof(name));
-        process.TempoExec = 5;
-        process.Prioridade = 3;
-        process.ExecutionFunction = PrintMessageD;
-        process.process_execution_class = ONCE;
-    }
-
-    Pool_AddEllementByIndex(pool, &process, pool->current_size);
-
-    //printf("pool size: %d\n", pool->current_size);
 }
 
 void TestProcessPoolFunctions(void)
@@ -145,4 +64,104 @@ void TestProcessPoolFunctions(void)
     Pool_RemoveEllementByIndex(&pool, 1);
     printf("-----Remove 1\n");
     PoolSort_Print(&pool);
+}
+
+void CreateProcesses(process_pool_t* pool)
+{
+    process_t process;
+
+    {
+        char name[] = "A Proc";
+
+        Process_Init(&process);
+        Process_SetName(&process, name, sizeof(name));
+        process.TempoExec = 3;
+        process.Prioridade = 1;
+        process.ExecutionFunction = PrintMessageA;
+        process.process_execution_class = REPEAT;
+    }
+
+    Pool_AddEllementByIndex(pool, &process, pool->current_size);
+
+    {
+        char name[] = "B Proc";
+
+        Process_Init(&process);
+        Process_SetName(&process, name, sizeof(name));
+        process.TempoExec = 2;
+        process.Prioridade = 4;
+        process.ExecutionFunction = PrintMessageB;
+        process.process_execution_class = ONCE;
+    }
+
+    Pool_AddEllementByIndex(pool, &process, pool->current_size);
+
+    {
+        char name[] = "C Proc";
+
+        Process_Init(&process);
+        Process_SetName(&process, name, sizeof(name));
+        process.TempoExec = 1;
+        process.Prioridade = 2;
+        process.ExecutionFunction = PrintMessageC;
+        process.process_execution_class = REPEAT;
+    }
+
+    Pool_AddEllementByIndex(pool, &process, pool->current_size);
+
+    {
+        char name[] = "D Proc";
+
+        Process_Init(&process);
+        Process_SetName(&process, name, sizeof(name));
+        process.TempoExec = 5;
+        process.Prioridade = 3;
+        process.ExecutionFunction = PrintMessageD;
+        process.process_execution_class = ONCE;
+    }
+
+    Pool_AddEllementByIndex(pool, &process, pool->current_size);
+
+}
+
+void ProcessManagedByTime(void)
+{
+    kernel_t kernel;
+
+    printf("Initializing Kernel\n");
+    Kernel_Init(&kernel);
+
+    printf("Creating Processes\n");
+    CreateProcesses(&kernel.pool);
+
+    printf("\n\nCreated Process Initial Order\n");
+    PoolSort_Print(&kernel.pool);
+
+    PoolSort_ByTime(&kernel.pool);
+    printf("Sorted Process Order\n");
+    PoolSort_Print(&kernel.pool);
+    
+    printf("Entering Kernel Loop:\n");
+    Kernel_Loop(&kernel);
+}
+
+void ProcessManagedByPriorityOnly(void)
+{
+    kernel_t kernel;
+
+    printf("Initializing Kernel\n");
+    Kernel_Init(&kernel);
+
+    printf("Creating Processes\n");
+    CreateProcesses(&kernel.pool);
+
+    printf("\n\nCreated Process Initial Order\n");
+    PoolSort_Print(&kernel.pool);
+
+    PoolSort_ByPriority(&kernel.pool);
+    printf("Sorted Process Order\n");
+    PoolSort_Print(&kernel.pool);
+    
+    printf("Entering Kernel Loop:\n");
+    Kernel_Loop(&kernel);
 }
