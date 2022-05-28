@@ -14,14 +14,15 @@
 
 void TestProcessPoolFunctions(void);
 void CreateProcesses(process_pool_t* pool);
-void ProcessManagedByTime(void);
-void ProcessManagedByPriorityOnly(void);
+void ProcessSchedulledByExecTime(void);
+void ProcessSchedulledByPriorityOnly(void);
+void ProcessSchedulledByPriorityAndExecTime(void);
 
 int main(void)
 {
     //TestProcessPoolFunctions();
-    //ProcessManagedByTime();
-    ProcessManagedByPriorityOnly();
+    //ProcessSchedulledByExecTime();
+    ProcessSchedulledByPriorityOnly();
 
     return 0;
 }
@@ -124,7 +125,7 @@ void CreateProcesses(process_pool_t* pool)
 
 }
 
-void ProcessManagedByTime(void)
+void ProcessSchedulledByExecTime(void)
 {
     kernel_t kernel;
 
@@ -145,7 +146,7 @@ void ProcessManagedByTime(void)
     Kernel_Loop(&kernel);
 }
 
-void ProcessManagedByPriorityOnly(void)
+void ProcessSchedulledByPriorityOnly(void)
 {
     kernel_t kernel;
 
