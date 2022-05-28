@@ -40,4 +40,7 @@ error_status_t Pool_SwapNodeOrder(process_pool_t* pool, int index_a, int index_b
 error_status_t Pool_GetEllementByIndex(process_pool_t* pool,
                                         process_t* process, int index);
 
+//Deallocate all the memory used by the pool
+error_status_t Pool_Clear(process_pool_t* pool);
+
 #endif

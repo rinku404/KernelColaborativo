@@ -15,7 +15,7 @@ int main(void)
 {
     TestProcessPoolFunctions();
 
-    
+
 
     //Kernel_Loop();
 
@@ -109,4 +109,6 @@ void TestProcessPoolFunctions(void)
         Pool_GetEllementByIndex(&pool, &proc, i);
         printf("%s\n", proc.NomeProcesso);
     }
+
+    Pool_Clear(&pool);
 }

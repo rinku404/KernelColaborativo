@@ -191,7 +191,7 @@ error_status_t Pool_RemoveEllementByIndex(process_pool_t* pool, int index)
         goto FINISH;
     }
 
-    if(pool->current_size == 0)
+    if(pool->current_size <= 0)
     {
         status = LIST_EMPTY;
         goto FINISH;
@@ -205,10 +205,12 @@ error_status_t Pool_RemoveEllementByIndex(process_pool_t* pool, int index)
         free(node);
 
         pool->current_size--;
+
+        goto FINISH;
     }
 
     //Remove From End
-    else if(index == pool->current_size)
+    else if(index == pool->current_size && index != 1)
     {
         process_pool_element_t *node = *(pool->start);
         process_pool_element_t *prev;
@@ -223,7 +225,10 @@ error_status_t Pool_RemoveEllementByIndex(process_pool_t* pool, int index)
         free(node);
 
         pool->current_size--;
+
+        goto FINISH;
     }
+
 
     //Remove From Middle
     else
@@ -241,6 +246,8 @@ error_status_t Pool_RemoveEllementByIndex(process_pool_t* pool, int index)
         free(node); 
 
         pool->current_size--; 
+
+        goto FINISH;
     }
 
 
@@ -332,6 +339,31 @@ error_status_t Pool_SwapNodeOrder(process_pool_t* pool, int index_a, int index_b
     node_a->next = aux_node_b.next;
     node_b->next = aux_node_a.next;
 
+
+FINISH:
+    return status;
+}
+
+error_status_t Pool_Clear(process_pool_t* pool)
+{
+    error_status_t status = SUCCESS;
+
+    while(pool->current_size != 0)
+    {
+        Pool_RemoveEllementByIndex(pool, 0);
+    }
+
+    if(*(pool->start) != NULL)
+    {
+        free(*(pool->start));
+    }
+
+    if((pool->start) != NULL)
+    {
+        free((pool->start));
+    }
+
+    printf("Pool cleared\n");
 
 FINISH:
     return status;
