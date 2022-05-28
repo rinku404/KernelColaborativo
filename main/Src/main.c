@@ -22,7 +22,9 @@ int main(void)
 {
     //TestProcessPoolFunctions();
     //ProcessSchedulledByExecTime();
-    ProcessSchedulledByPriorityOnly();
+    //ProcessSchedulledByPriorityOnly();
+    ProcessSchedulledByPriorityAndExecTime();
+
 
     return 0;
 }
@@ -90,7 +92,7 @@ void CreateProcesses(process_pool_t* pool)
         Process_Init(&process);
         Process_SetName(&process, name, sizeof(name));
         process.TempoExec = 2;
-        process.Prioridade = 4;
+        process.Prioridade = 3;
         process.ExecutionFunction = PrintMessageB;
         process.process_execution_class = ONCE;
     }
@@ -103,7 +105,7 @@ void CreateProcesses(process_pool_t* pool)
         Process_Init(&process);
         Process_SetName(&process, name, sizeof(name));
         process.TempoExec = 1;
-        process.Prioridade = 2;
+        process.Prioridade = 1;
         process.ExecutionFunction = PrintMessageC;
         process.process_execution_class = REPEAT;
     }
@@ -161,6 +163,31 @@ void ProcessSchedulledByPriorityOnly(void)
 
     PoolSort_ByPriority(&kernel.pool);
     printf("Sorted Process Order\n");
+    PoolSort_Print(&kernel.pool);
+    
+    printf("Entering Kernel Loop:\n");
+    Kernel_Loop(&kernel);
+}
+
+void ProcessSchedulledByPriorityAndExecTime(void)
+{
+    kernel_t kernel;
+
+    printf("Initializing Kernel\n");
+    Kernel_Init(&kernel);
+
+    printf("Creating Processes\n");
+    CreateProcesses(&kernel.pool);
+
+    printf("\n\nCreated Process Initial Order\n");
+    PoolSort_Print(&kernel.pool);
+
+    PoolSort_ByTime(&kernel.pool);
+    printf("Sorted by Time Process Order\n");
+    PoolSort_Print(&kernel.pool);
+
+    PoolSort_ByPriority(&kernel.pool);
+    printf("Sorted by Priority Process Order\n");
     PoolSort_Print(&kernel.pool);
     
     printf("Entering Kernel Loop:\n");
