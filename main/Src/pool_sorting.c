@@ -41,8 +41,6 @@ error_status_t PoolSort_ByTime(process_pool_t* pool)
 {
     error_status_t status = SUCCESS;
 
-    printf("a\n");
-
     if(pool == NULL)
     {
         status = MEMORY_NOT_ALLOCATED;
@@ -65,8 +63,8 @@ error_status_t PoolSort_ByTime(process_pool_t* pool)
     process_t tested_process;
 
 
-    printf("Before Sorting: \n");
-    PoolSort_Print(pool);
+    //printf("Before Sorting: \n");
+    //PoolSort_Print(pool);
 
     //Insertion Sort
     for(int item_to_be_inserted_index = 1, tested_item_index;
@@ -77,38 +75,46 @@ error_status_t PoolSort_ByTime(process_pool_t* pool)
 
         Pool_GetEllementByIndex(pool, &process_to_be_inserted, item_to_be_inserted_index);
 
-        printf("item_to_be_inserted_index: %d\n", item_to_be_inserted_index);
+        //printf("item_to_be_inserted_index: %d\n", item_to_be_inserted_index);
+        //printf("---------------started while----------\n");
 
-        while(tested_item_index >= 0)
+        while(1)
         {
-            //printf("\ttested_item_index: %d\n", tested_item_index);
+            //getchar();
+            //printf("tested_item_index: %d\n", tested_item_index);
             //PoolSort_Print(pool);
 
             Pool_GetEllementByIndex(pool, &tested_process, tested_item_index);
             
-            printf("Tested Proc: %s Proc_insert: %s\n",
-                tested_process.NomeProcesso, process_to_be_inserted.NomeProcesso);
+            //printf("Tested Proc: %s Proc_insert: %s\n",
+            //    tested_process.NomeProcesso, process_to_be_inserted.NomeProcesso);
+            
             if(tested_process.TempoExec > process_to_be_inserted.TempoExec)
             {
-                Pool_SwapNodeOrder(pool, tested_item_index, item_to_be_inserted_index);
+                Pool_SwapNodeOrder(pool, tested_item_index, tested_item_index + 1);
             }
             else
             {
                 break;
             }
-
-            tested_item_index--;
             
-            getchar();
+            tested_item_index--;
+
+            if(tested_item_index < 0)
+            {
+                break;
+            }
+
         }
 
-
+        //printf("---------------finished while----------\n\n");
+        //PoolSort_Print(pool);
 
         
     }
 
-    printf("Done Sorting: \n");
-    PoolSort_Print(pool);
+    //printf("Done Sorting: \n");
+    //PoolSort_Print(pool);
 
 FINISH:
     return status;
