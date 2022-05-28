@@ -15,13 +15,13 @@
 void TestProcessPoolFunctions(void);
 void CreateProcesses(process_pool_t* pool);
 void ProcessManagedByTime(void);
+void ProcessManagedByPriority(void);
 
 int main(void)
 {
     //TestProcessPoolFunctions();
     ProcessManagedByTime();
-
-    //Kernel_Loop();
+    
 
     return 0;
 }
@@ -57,7 +57,7 @@ void CreateProcesses(process_pool_t* pool)
 
         Process_Init(&process);
         Process_SetName(&process, name, sizeof(name));
-        process.TempoExec = 300;
+        process.TempoExec = 3;
         process.Prioridade = 1;
         process.ExecutionFunction = PrintMessageA;
         process.process_execution_class = REPEAT;
@@ -70,7 +70,7 @@ void CreateProcesses(process_pool_t* pool)
 
         Process_Init(&process);
         Process_SetName(&process, name, sizeof(name));
-        process.TempoExec = 200;
+        process.TempoExec = 2;
         process.Prioridade = 3;
         process.ExecutionFunction = PrintMessageB;
         process.process_execution_class = ONCE;
@@ -83,7 +83,7 @@ void CreateProcesses(process_pool_t* pool)
 
         Process_Init(&process);
         Process_SetName(&process, name, sizeof(name));
-        process.TempoExec = 100;
+        process.TempoExec = 1;
         process.Prioridade = 3;
         process.ExecutionFunction = PrintMessageC;
         process.process_execution_class = REPEAT;
@@ -96,7 +96,7 @@ void CreateProcesses(process_pool_t* pool)
 
         Process_Init(&process);
         Process_SetName(&process, name, sizeof(name));
-        process.TempoExec = 500;
+        process.TempoExec = 5;
         process.Prioridade = 3;
         process.ExecutionFunction = PrintMessageD;
         process.process_execution_class = ONCE;

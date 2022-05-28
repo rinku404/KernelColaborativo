@@ -16,7 +16,7 @@ struct
     int                         MemoriaAloc;
     float                       TempoExec;
     int                         Prioridade;
-    int                         start;
+    int                         TempoExecAtual;
     process_execution_class_t   process_execution_class;
     ExecutionFunction_t         ExecutionFunction;
 

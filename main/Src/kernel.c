@@ -21,9 +21,17 @@ error_status_t Kernel_Loop(kernel_t* kernel)
         Pool_GetEllementByIndex(&(kernel->pool), &current_process, 0);
         
         current_process.ExecutionFunction();
-
-        //Press enter to "clock"
-        getchar();
+        
+        //Emulate Clock by Pressing Enter
+        while(current_process.TempoExec - current_process.TempoExecAtual > 0)
+        {
+            current_process.TempoExecAtual++;
+            printf("Spent Time: %d\n", current_process.TempoExecAtual);
+            //"clock"
+            getchar();
+        }
+        //Reset ExecTimeAtual
+        current_process.TempoExecAtual = 0;
 
         Pool_RemoveEllementByIndex(&(kernel->pool), 0);
 

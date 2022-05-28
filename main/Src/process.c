@@ -5,6 +5,7 @@
 
 void Process_Init(process_t* process)
 {
+    process->TempoExecAtual = 0;
     process->NomeProcesso = NULL;
 }
 
