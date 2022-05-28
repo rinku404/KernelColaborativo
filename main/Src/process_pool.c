@@ -280,9 +280,7 @@ error_status_t Pool_SwapNodeOrder(process_pool_t* pool, int index_a, int index_b
     {
         status = LIST_EMPTY;
         goto FINISH;
-    }  
-
-    
+    }
 
     if(index_a > index_b)
     {
@@ -293,29 +291,14 @@ error_status_t Pool_SwapNodeOrder(process_pool_t* pool, int index_a, int index_b
         index_a = index_aux;
     }
 
-    if(index_a == 0)
-    {
-        
-    }
-
 
     process_pool_element_t *node_a = *(pool->start);
-    process_pool_element_t *prev_a;
-
-    for(int i = 0; i < index_a; i++)
-    {
-        prev_a = node_a;
-        node_a = node_a->next;
-    }
-
 
     process_pool_element_t *node_b = *(pool->start);
     process_pool_element_t *prev_b;
 
-    if(index_b == 0)
-    {
-        prev_b = *(pool->start);
-    }
+    process_pool_element_t aux_node_a, aux_node_b;
+    process_pool_element_t aux_prev_a, aux_prev_b;
 
     for(int i = 0; i < index_b; i++)
     {
@@ -323,15 +306,28 @@ error_status_t Pool_SwapNodeOrder(process_pool_t* pool, int index_a, int index_b
         node_b = node_b->next;
     }
 
-    process_pool_element_t aux_node_a, aux_node_b;
-    process_pool_element_t aux_prev_a, aux_prev_b;
+    if(index_a == 0)
+    {
+        *(pool->start) = node_b;   
+    }
+    else
+    {
+        process_pool_element_t *prev_a;
+
+        for(int i = 0; i < index_a; i++)
+        {
+            prev_a = node_a;
+            node_a = node_a->next;
+        }
+
+        aux_prev_a = *prev_a;
+        prev_a->next = node_b;
+    }
 
     aux_node_a = *node_a;
     aux_node_b = *node_b;
-    aux_prev_a = *prev_a;
     aux_prev_b = *prev_b;
 
-    prev_a->next = node_b;
     prev_b->next = node_a;
     node_a->next = aux_node_b.next;
     node_b->next = aux_node_a.next;

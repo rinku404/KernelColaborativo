@@ -56,7 +56,7 @@ int main()
         printf("%s\n", proc.NomeProcesso);
     }
 
-    Pool_SwapNodeOrder(&pool, 1, 4);
+    Pool_SwapNodeOrder(&pool, 0, 4);
 
     printf("----Swapped 0 and 2\n");
 
