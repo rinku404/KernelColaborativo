@@ -24,8 +24,7 @@ int main(void)
     //ProcessSchedulledByExecTime();
     //ProcessSchedulledByPriorityOnly();
     ProcessSchedulledByPriorityAndExecTime();
-
-
+    
     return 0;
 }
 
