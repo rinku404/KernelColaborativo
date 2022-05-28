@@ -301,22 +301,47 @@ error_status_t Pool_SwapNodeOrder(process_pool_t* pool, int index_a, int index_b
     {
         process_pool_element_t *node_a = *(pool->start);
         process_pool_element_t *node_b = *(pool->start);
-        process_pool_element_t *prev_a;
-
-        for(int i = 0; i < index_a; i++)
+        process_pool_element_t *aux_node_b_next;
+        
+        if(index_a == 0)
         {
-            prev_a = node_a;
-            node_a = node_a->next;
+            for(int i = 0; i < index_a; i++)
+            {
+                node_a = node_a->next;
+            }
+            
+            for(int i = 0; i < index_b; i++)
+            {
+                node_b = node_b->next;
+            }
+            aux_node_b_next = node_b->next;
+
+            *(pool->start) = node_b;
+            node_b->next = node_a;
+            node_a->next = aux_node_b_next;
+        }
+        else
+        {
+            process_pool_element_t *prev_a;
+
+            for(int i = 0; i < index_a; i++)
+            {
+                prev_a = node_a;
+                node_a = node_a->next;
+            }
+            
+            for(int i = 0; i < index_b; i++)
+            {
+                node_b = node_b->next;
+            }
+            aux_node_b_next = node_b->next;
+
+            prev_a->next = node_b;
+            node_b->next = node_a;
+            node_a->next = aux_node_b_next;
         }
         
-        for(int i = 0; i < index_b; i++)
-        {
-            node_b = node_b->next;
-        }
 
-        node_b->next = node_a;
-        node_a->next = node_b->next;
-        prev_a->next = node_b;
 
 
     }

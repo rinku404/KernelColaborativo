@@ -18,8 +18,8 @@ void ProcessManagedByTime(void);
 
 int main(void)
 {
-    //TestProcessPoolFunctions();
-    ProcessManagedByTime();
+    TestProcessPoolFunctions();
+    //ProcessManagedByTime();
 
     //Kernel_Loop();
 
@@ -115,18 +115,21 @@ void TestProcessPoolFunctions(void)
     printf("-----------\n");
     PoolSort_Print(&pool);
 
-    Pool_SwapNodeOrder(&pool, 0, 3);
-    printf("----Swapped 0 and 3\n");
+    Pool_SwapNodeOrder(&pool, 0, 1);
+    printf("----Swapped 0 and 1\n");
     PoolSort_Print(&pool);
 
     Pool_SwapNodeOrder(&pool, 2, 3);
     printf("----Swapped 2 and 3\n");
     PoolSort_Print(&pool);
 
-    Pool_SwapNodeOrder(&pool, 3, 4);
-    printf("----Swapped 3 and 4\n");
+    Pool_SwapNodeOrder(&pool, 1, 3);
+    printf("----Swapped 1 and 3\n");
     PoolSort_Print(&pool);
 
+    Pool_SwapNodeOrder(&pool, 3, 0);
+    printf("----Swapped 3 and 0\n");
+    PoolSort_Print(&pool);
 
     Pool_RemoveEllementByIndex(&pool, 0);
     printf("-----Remove 0\n");
