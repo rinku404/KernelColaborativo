@@ -1,0 +1,3 @@
+D:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade/build/CMakeFiles/ALL_BUILD.dir
+D:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade/build/CMakeFiles/ZERO_CHECK.dir
+D:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade/build/main/Src/CMakeFiles/kernel_tempo_prioridade.dir

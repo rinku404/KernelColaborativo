@@ -1,0 +1,10 @@
+^D:\REPOS\CPP\SISTEMASEMBARCADOS\BASICKERNELPRIORIDADE\BUILD\CMAKEFILES\CC4A0847909E23324125A3D1A08B8DD0\GENERATE.STAMP.RULE
+setlocal
+D:\Programs\bin\cmake.exe -SD:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade -BD:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade/build/basicKernel.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

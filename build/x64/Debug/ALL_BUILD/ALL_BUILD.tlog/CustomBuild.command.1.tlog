@@ -1,0 +1,10 @@
+^D:\REPOS\CPP\SISTEMASEMBARCADOS\BASICKERNELPRIORIDADE\CMAKELISTS.TXT
+setlocal
+D:\Programs\bin\cmake.exe -SD:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade -BD:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade/build --check-stamp-file D:/repos/cpp/SistemasEmbarcados/BasicKernelPrioridade/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
